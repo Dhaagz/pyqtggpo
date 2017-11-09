@@ -1,0 +1,40 @@
+{% extends "eloboost/base.html" %}
+{% block title %}EloBoost{% endblock %}
+{% block content %}
+<h1>Eloboost</h1>
+<div class="ranklist-wrapper">
+{% if rank_list %}
+<div class="form-group">
+	<label for="initialrank">Votre rang actuel</label>
+	<select class="form-control rank_select" id="initialrank_select">
+		{% for rank in rank_list %}
+		<option value="{{rank.title}}">{{rank.title}}</option>
+		{% endfor %}
+	</select>
+	<label for="wantedrank">Rang souhait&eacute;</label>
+	<select class="form-control rank_select" id="wantedrank_select">
+		{% for rank in rank_list %}
+		<option value="{{rank.title}}">{{rank.title}}</option>
+		{% endfor %}
+	</select>
+	<label for="boost_price">Prix :</label>
+	<p id="boost_price"></p>
+	<input type="submit" id="boost_submit" class="btn btn-info" value="Booster!"/>
+</div>
+{% else %}
+	<p>ça booste ici.</p>
+{% endif %}
+</div>
+{% endblock %}
+{% load staticfiles %}
+{% block script %}
+<script src="{% static "eloboost/boostme.js" %}"></script>
+<script type="text/javascript">
+var rank_prices={
+{% for rank in rank_list %}
+"{{rank.title}}":"{{rank.price}}",
+{% endfor %}
+};
+updateRank();
+</script>
+{% endblock %}

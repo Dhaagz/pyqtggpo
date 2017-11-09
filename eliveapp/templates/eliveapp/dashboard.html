@@ -1,0 +1,24 @@
+{% extends "eliveapp/base.html" %}
+{% block title %} {{ channel.title.capitalize }} - Tableau de bord {% endblock %}
+{% block content %}
+<h1>{{ channel.title.capitalize }} - Tableau de bord</h1>
+<div class="container dashboard-wrapper">
+<ul class="list-group">
+	<li class="list-group-item">
+			<span class="label label-success">Cl&eacute; de streaming</span><span><input readonly select-on-click style="width:100%" value="{{ user.username }}?st={{ channel.key }}"></input></span><span><a class="btn btn-link" type="button" href={% url 'dashboard/generate_key' %}>reg&eacute;n&eacute;rer </a></span>
+	</li>	
+	<li class="list-group-item">
+			<span class="label label-success">Url de publication (FMS url)</span><span><input readonly select-on-click style="width:100%" value="rtmp://178.33.42.146/live"></input></span>
+	</li>
+	<li class="list-group-item">
+			<span class="label label-success">Url de diffusion</span><span><input readonly select-on-click style="width:100%" value="rtmp://178.33.42.146/live/{{ channel.title }}"></input></span>
+	</li>
+	<li class="list-group-item">
+			<span class="label label-success">Topic de la chaîne</span><span><input readonly select-on-click style="width:100%" value="{{ channel.topic }}"></input></span>
+	</li>
+	<li class="list-group-item">
+			<span class="label label-success">Email</span><span><input readonly select-on-click style="width:100%" value="{{ user.email }}"></input></span>
+	</li>
+</ul>
+</div>
+{% endblock %}

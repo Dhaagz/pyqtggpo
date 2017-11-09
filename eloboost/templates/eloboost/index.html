@@ -1,0 +1,16 @@
+{% extends "eloboost/base.html" %}
+{% block title %}EloBoost{% endblock %}
+{%block content%}
+<h1>Eloboost</h1>
+<div class="channellist-wrapper">
+{% if channel_list %}
+<ul class="list-group">
+	{% for channel in channel_list %}
+	<li class="list-group-item"><a href="/eloboost/{{channel.title}}/">{{ channel.title }}</a></li>
+	{% endfor %}
+</ul>
+{% else %}
+	<p>ça booste ici.</p>
+{% endif %}
+</div>
+{% endblock %}

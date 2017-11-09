@@ -1,0 +1,45 @@
+{% extends "eliveapp/base.html" %}
+{% block title %}Chaîne {{ channel.title }} {% endblock %}
+{% block head %}		<!--link rel="stylesheet" href="style.css"--> 
+		<link href="http://vjs.zencdn.net/5.10.7/video-js.css" rel="stylesheet">
+		<!--IE8 Support-->
+		<script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>	
+{% endblock %}
+{% block content %}
+		<h1>Chaîne {{ channel.title.capitalize }}</h1>
+		<h2>{{ channel.topic }}</h2>
+		<div class="row">
+			<div class="player-wrapper col-md-12">
+				<div class="videocontent">
+					<video id="player" class="video-js vjs-16-9 vjs-big-play-centered" controls preload="auto"width="1280" height="720" poster="https://pbs.twimg.com/profile_images/844667812484448256/AieOT8B5.jpg" data-setup="{}">			
+		    			<p class="vjs-no-js">
+							To view this video please enable JavaScript, and consider upgrading to a web browser that
+							<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+						</p>
+					</video>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+		testUrl = "rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4"
+		baseUrl = "rtmp://178.33.42.146/live/";
+		channel = "{{channel.title|escapejs|safe}}";
+
+		function initplayer(url){
+			var video = document.getElementById('player');
+			var source = document.createElement('source');
+			source.setAttribute('src',url);
+			source.setAttribute('type','rtmp/mp4');
+			video.appendChild(source);
+			video.play();
+		}
+		
+		try {
+			initplayer(baseUrl+channel);
+		}
+		catch(e){
+	//		initplayer(testUrl);
+		}
+		</script>
+		<script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
+{% endblock %}

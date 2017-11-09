@@ -1,0 +1,40 @@
+{% extends "eliveapp/base.html" %}
+{% block title %}Chaîne {{ channel.title }} {% endblock %}
+{% block head %}		<!--link rel="stylesheet" href="style.css"--> 
+		<script src="https://cdn.jsdelivr.net/clappr/latest/clappr.min.js"></script> 
+		<script type="text/javascript" src="http://cdn.jsdelivr.net/clappr.rtmp/latest/rtmp.min.js"> </script>
+{% endblock %}
+{% block content %}
+		<h1>Chaîne {{ channel.title.capitalize }}</h1>
+		<h2>{{ channel.topic }}</h2>
+		<div id="player-wrapper" class="container player"></div>
+		<script type="text/javascript">
+		testUrl = "rtmp://dev.wowza.longtailvideo.com/vod/_definst_/sintel/640.mp4"
+		baseUrl = "rtmp://178.33.42.146/live/";
+		channel = "{{channel.title|escapejs|safe}}";
+		function initplayer(url){
+			var player = new Clappr.Player(
+				{ 
+				source: url, 
+				//source: "rtmp://dev.wowza.longtailvideo.com/vod/_definst_/sintel/640.mp4",
+				parentId: "#player-wrapper", 
+				plugins: {'playback': [RTMP]}, 
+				rtmpConfig: { 
+					swfPath: '//cdn.jsdelivr.net/clappr.rtmp/latest/assets/RTMP.swf',
+			      		scaling:'stretch',
+				       	playbackType: 'live',
+				       	bufferTime: 1,
+				       	startLevel: 0,
+			       	},
+	       			});
+		}
+		
+		try {
+			initplayer(baseUrl+channel);
+		}
+		catch(e){
+			alert("404, fallback.");
+			initplayer(testUrl);
+		}
+		</script>
+{% endblock %}

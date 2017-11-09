@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static "eliveapp/elive.css" %}" />
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		{% block head %}{% endblock %}
+		<title>{%block title %}{%endblock%}</title> 
+	</head> 
+	<body>
+		<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#eliveNavbar">
+							<span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/elive">Elive</a>
+			</div>
+			<div class="collapse navbar-collapse" id="eliveNavbar">
+				<ul class="nav navbar-nav">
+					{% if user.is_authenticated %}
+					<li><a href="/elive/dashboard">Tableau de bord</a></li>
+<li><a href="/elive/{{user.username}}">Chaîne</a></li>
+					{% endif %}
+				</ul>
+				{% if user.is_authenticated %}
+				<div class="visible-sm">
+						<p class="navbar-text navbar-right"><strong>{{user.username.capitalize}}</strong></p>
+				</div>
+				{% endif %}
+				<ul class="nav navbar-nav navbar-right">
+					{% if user.is_authenticated %}
+					<li><a href="/elive/logout">Se d&eacute;connecter</a></li>
+					{% else %}
+					<!--li><a href="/elive/subscribe"><span class="glyphicon glyphicon-user"></span> S'inscrire</a></li-->
+					<li><a href="/elive/login"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+		</nav>
+		
+		<div class="container">
+			{% block content %}{% endblock %}
+		</div>
+		<footer class="footer">
+			<div class="container">
+			{% block footer %}
+			<p class="text-muted">TeamFDP</p>
+			{%endblock%}
+			</div>
+		</footer>
+	</body> 
+</html>
